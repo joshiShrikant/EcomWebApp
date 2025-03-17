@@ -25,9 +25,15 @@ export const CartStore = signalStore(
     totalPrice: computed(() => calculateTotalPrice(products())),
   })),
   withMethods(({ products, ...store }) => ({
-    addToCart(product: IProduct) {
-      const updatedProduct = [...products(), product];
-      patchState(store, { products: updatedProduct });
+
+    addToCart(newProduct: IProduct) {
+      patchState(store, {
+        products: products().some(p => p.id === newProduct.id)
+          ? products().map(p =>
+              p.id === newProduct.id ? { ...p, quantity: p.quantity + 1 } : p
+            )
+          : [...products(), { ...newProduct, quantity: 1 }]
+      });
     },
     removeItem(id: number) {
       const updatedProduct = products().filter((a) => a.id !== id);

@@ -17,12 +17,12 @@
           <div class="flex w-full justify-between space-x-2 pb-2">
             <div class="space-y-1">
               <h3 class="text-lg font-semibold leading-snug sm:pr-8">
-                {{item.title}}
+                {{item.title.substring(0, 35)}}@if(item.title.length>35){...}
               </h3>
               <p class="text-sm">Orange</p>
             </div>
             <div class="text-right">
-              <p class="text-lg font-semibold">{{item.price | currency}}</p>
+              <p class="text-lg font-semibold">{{item.price | currency}} X {{item.quantity}} = {{item.price*item.quantity}}</p>
             </div>
           </div>
           <div class="flex divide-x text-sm">
